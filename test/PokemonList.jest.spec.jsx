@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
 import '@testing-library/jest-dom'
 import PokemonList from '../src/PokemonList'
@@ -16,13 +16,15 @@ const pokemonList = [{
 }]
 
 describe('<PokemonList />', () => {
-  it('should render items', () => {
+  it('should render items', async () => {
     render(
       <BrowserRouter>
         <PokemonList pokemonList={pokemonList} />
       </BrowserRouter>
     )
-    expect(screen.getByText('bulbasaur')).toBeVisible()
-    expect(screen.getByText('eevee')).toBeVisible()
+    await waitFor(() => {
+      expect(screen.getByText('bulbasaur')).toBeVisible()
+      expect(screen.getByText('eevee')).toBeVisible()
+    })
   })
 })
