@@ -4,15 +4,14 @@ import { BrowserRouter } from 'react-router-dom'
 import '@testing-library/jest-dom'
 import PokemonList from '../src/PokemonList'
 
-
 const pokemonList = [{
   url: 'https://pokeapi.co/api/v2/pokemon/1/',
   name: 'bulbasaur',
-  id: 1
+  id: 1,
 }, {
   url: 'https://pokeapi.co/api/v2/pokemon/133/',
   name: 'eevee',
-  id: 133
+  id: 133,
 }]
 
 describe('<PokemonList />', () => {
@@ -20,7 +19,7 @@ describe('<PokemonList />', () => {
     render(
       <BrowserRouter>
         <PokemonList pokemonList={pokemonList} />
-      </BrowserRouter>
+      </BrowserRouter>,
     )
     await waitFor(() => {
       expect(screen.getByText('bulbasaur')).toBeVisible()

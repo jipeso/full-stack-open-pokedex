@@ -49,13 +49,13 @@ const App = () => {
       <Route
         exact
         path="/pokemon/:name"
-        element={
+        element={(
           <PokemonPage
             pokemonList={pokemonList}
             previous={previous}
             next={next}
           />
-        }
+        )}
       />
     </Routes>
   )
