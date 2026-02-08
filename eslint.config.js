@@ -4,12 +4,10 @@ import globals from 'globals'
 import js from '@eslint/js'
 import react from 'eslint-plugin-react'
 import jest from 'eslint-plugin-jest'
-import prettier from 'eslint-config-prettier/flat'
 
 export default defineConfig([
   globalIgnores(['dist/**', 'node_modules/**']),
   js.configs.recommended,
-  prettier,
   {
     files: ['**/*.{js,jsx}'],
     plugins: { react },
@@ -48,7 +46,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['test/**'],
+    files: ['**/test/**'],
     ...jest.configs['flat/recommended'],
   },
 ])

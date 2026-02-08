@@ -96,7 +96,9 @@ describe('<PokemonPage />', () => {
       </MemoryRouter>,
     )
 
-    expect(await screen.getByTestId('stats')).toHaveTextContent('hp55attack55')
+    await waitFor(() => {
+      expect(screen.getByTestId('stats')).toHaveTextContent('hp55attack55')
+    })
   })
 
   it('should render previous and next urls if they exist', async () => {
