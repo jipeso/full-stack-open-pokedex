@@ -17,4 +17,9 @@ jobs:
       - run: npm run lint
       - run: npm run build
       - run: npm test
+      - name: Deploy to Render
+        env:
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run:  |
+          curl "$deploy_url"
       
