@@ -8,9 +8,15 @@ on:
     branches: [main]
     types: [opened, synchronize]
 
+env:
+  NON_SKIP_PR: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '#skip') }}
+
 jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-latest
+    outputs:
+      is_deployed: ${{ steps.deploy.outcome == 'success'}} 
+
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
@@ -28,15 +34,18 @@ jobs:
         run: npx playwright test
       
       - name: Deploy to Render
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ env.NON_SKIP_PR == 'true' }}
+        id: deploy
         env:
           deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run:  |
           curl "$deploy_url"
 
   tag_release:
-    if: ${{ github.event_name == 'push' }}    
     needs: [simple_deployment_pipeline]
+    if: |
+      ${{ needs.simple_deployment_pipeline.outputs.is_deployed == 'true' }}
+      
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
