@@ -45,7 +45,7 @@ jobs:
     needs: [simple_deployment_pipeline]
     if: |
       ${{ needs.simple_deployment_pipeline.outputs.is_deployed == 'true' }}
-      
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -54,7 +54,7 @@ jobs:
           fetch-depth: '0'
 
       - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@v1
+        uses: anothrNick/github-tag-action@4ed44965e0db8dab2b466a16da04aec3cc312fd8
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch     
