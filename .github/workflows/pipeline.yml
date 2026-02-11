@@ -42,7 +42,7 @@ jobs:
           curl "$deploy_url"
       
       - name: Discord success notification
-        uses: rjstone/discord-webhook-notify@c2597273488aeda841dd1e891321952b51f7996f
+        uses: rjstone/discord-webhook-notify@v2
         if: success()
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
@@ -52,7 +52,7 @@ jobs:
           description: 'to ${{ secrets.RENDER_URL }} by ${{ github.actor }}'
 
       - name: Discord failure notification
-        uses: rjstone/discord-webhook-notify@c2597273488aeda841dd1e891321952b51f7996f
+        uses: rjstone/discord-webhook-notify@v2
         if: failure()
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
